@@ -1,5 +1,5 @@
 ﻿{
-  "TrainingTime": 30,
+  "TrainingTime": 10,
   "Scenario": "Classification",
   "DataSource": {
     "Type": "TabularFile",
@@ -95,64 +95,8 @@
         "Version": 0,
         "Type": "Trial",
         "TrainerName": "SdcaMaximumEntropyMulti",
-        "Score": 0.46606782106782108,
-        "RuntimeInSeconds": 5.0349998474121094
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "FastTreeOva",
-        "Score": 0.43710678210678211,
-        "RuntimeInSeconds": 3.124000072479248
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "SdcaLogisticRegressionOva",
-        "Score": 0.46606782106782108,
-        "RuntimeInSeconds": 6.3649997711181641
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "FastTreeOva",
-        "Score": 0.46670274170274162,
-        "RuntimeInSeconds": 2.4590001106262207
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "LbfgsMaximumEntropyMulti",
-        "Score": 0.42829004329004328,
-        "RuntimeInSeconds": 1.5230000019073486
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "LbfgsLogisticRegressionOva",
-        "Score": 0.42086580086580083,
-        "RuntimeInSeconds": 2.3659999370574951
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "LightGbmMulti",
-        "Score": 0.54422077922077916,
-        "RuntimeInSeconds": 1.7929999828338623
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "FastForestOva",
-        "Score": 0.56128427128427139,
-        "RuntimeInSeconds": 3.505000114440918
-      },
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "SdcaMaximumEntropyMulti",
-        "Score": 0.51667388167388162,
-        "RuntimeInSeconds": 1.562999963760376
+        "Score": 0.45614718614718619,
+        "RuntimeInSeconds": 5.0859999656677246
       }
     ],
     "Pipeline": {
@@ -170,13 +114,20 @@
           "OutputColumnName": "User Id"
         },
         "10": {
-          "NumberOfTrees": 4,
-          "NumberOfLeaves": 4,
-          "FeatureFraction": 1.0,
+          "OutputColumnNames": [
+            "Features"
+          ],
+          "InputColumnNames": [
+            "Features"
+          ]
+        },
+        "11": {
+          "L1Regularization": 1.0,
+          "L2Regularization": 0.1,
           "LabelColumnName": "Sex",
           "FeatureColumnName": "Features"
         },
-        "11": {
+        "12": {
           "OutputColumnName": "PredictedLabel",
           "InputColumnName": "PredictedLabel"
         },
@@ -233,7 +184,8 @@
         "FeaturizeText",
         "Concatenate",
         "MapValueToKey",
-        "FastForestOva",
+        "NormalizeMinMax",
+        "SdcaMaximumEntropyMulti",
         "MapKeyToValue"
       ]
     },

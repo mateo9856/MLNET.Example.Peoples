@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-namespace MLModel1_ConsoleApp1
+namespace MLModel1_ModelBuilderGenerate
 {
     public partial class MLModel1
     {

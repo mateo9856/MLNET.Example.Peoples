@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ML.Data;
-using Microsoft.ML.Trainers.FastTree;
 using Microsoft.ML.Trainers;
 using Microsoft.ML;
 
-namespace MLModel1_ConsoleApp1
+namespace MLModel1_ModelBuilderGenerate
 {
     public partial class MLModel1
     {
@@ -45,7 +44,8 @@ namespace MLModel1_ConsoleApp1
                                     .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Job Title",outputColumnName:@"Job Title"))      
                                     .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"Index",@"User Id",@"First Name",@"Last Name",@"Email",@"Phone",@"Date of birth",@"Job Title"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"Sex",inputColumnName:@"Sex"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastForest(new FastForestBinaryTrainer.Options(){NumberOfTrees=4,NumberOfLeaves=4,FeatureFraction=1F,LabelColumnName=@"Sex",FeatureColumnName=@"Features"}),labelColumnName:@"Sex"))      
+                                    .Append(mlContext.Transforms.NormalizeMinMax(@"Features", @"Features"))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy(new SdcaMaximumEntropyMulticlassTrainer.Options(){L1Regularization=1F,L2Regularization=0.1F,LabelColumnName=@"Sex",FeatureColumnName=@"Features"}))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;

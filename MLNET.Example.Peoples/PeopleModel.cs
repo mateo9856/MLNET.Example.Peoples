@@ -29,12 +29,10 @@ namespace MLNET.Example.Peoples
         public string JobTitle { get; set; }
     }
 
-    public class PeopleModelOutput : PeopleModel
+    public class PeopleModelOutput
     {
         [ColumnName("PredictedLabel")]
-        public bool Prediction { get; set; }
-        public float Probability { get; set; }
-        public float Score { get; set; }
+        public string Sex { get; set; }
     }
 
 }
