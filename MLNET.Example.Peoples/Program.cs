@@ -20,9 +20,9 @@ IEstimator<ITransformer> dataPipeline = mlContext.Transforms.Conversion.MapValue
 var trainingPipeline = dataPipeline.Append(mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("Label", "Features"))
     .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
-ITransformer model = trainingPipeline.Fit(dataView);
+var model = trainingPipeline.Fit(dataView).Transform(dataView).Preview();
 
-var engine = mlContext.Model.CreatePredictionEngine<PeopleModel, PeopleModelOutput>(model);
+//var engine = mlContext.Model.CreatePredictionEngine<PeopleModel, PeopleModelOutput>(model);
 
 var modelTest = new PeopleModel()
 {
@@ -31,6 +31,6 @@ var modelTest = new PeopleModel()
     Email = "mike123@myspace.com"
 };
 
-var pred = engine.Predict(modelTest);
+//var pred = engine.Predict(modelTest);
 
-Console.WriteLine(pred.Sex);
+//Console.WriteLine(pred.Sex);

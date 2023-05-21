@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace MLNET.Example.Peoples
 {
-    public class TrainerService : ITrainer
+    public abstract class TrainerServiceBase : ITrainer
     {
         private MLContext _mlContext;
         private ITransformer _trainingModel;
         private IDataView data;
-        public TrainerService()
+        public TrainerServiceBase()
         {
             _mlContext = new MLContext();
         }
 
-        public TrainerService(int seed)
+        public TrainerServiceBase(int seed)
         {
             _mlContext = new MLContext(seed: seed);
         }
@@ -53,9 +53,7 @@ namespace MLNET.Example.Peoples
                 _mlContext.Model.Save(_trainingModel, data.Schema, file);
         }
 
-        protected virtual IEstimator<ITransformer> PreparePipeline() {
-            throw new Exception("You use a base Pipeline, use inherit class!");
-        }
+        protected abstract IEstimator<ITransformer> PreparePipeline();
 
     }
 }
