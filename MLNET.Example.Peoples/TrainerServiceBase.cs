@@ -12,9 +12,9 @@ namespace MLNET.Example.Peoples
 {
     public abstract class TrainerServiceBase : ITrainer
     {
-        private MLContext _mlContext;
-        private ITransformer _trainingModel;
-        private IDataView data;
+        protected MLContext _mlContext;
+        protected ITransformer _trainingModel;
+        protected IDataView data;
         public TrainerServiceBase()
         {
             _mlContext = new MLContext();
